@@ -8,6 +8,8 @@ namespace MyPassHolder.Common
         public AutoMapperProfile()
         {
             CreateMap<RegisterRequest, User>().ReverseMap();
+            CreateMap<CategoryRequest, Category>().ReverseMap();
+
         }
     }
 }

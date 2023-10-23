@@ -7,12 +7,12 @@ namespace MyPassHolder.Services
 {
     public class UserOperationsService
     {
-        private readonly UserOperationsRepository _repository;
+        private readonly UserOperationsRepository _userOperationsRepository;
         private readonly IMapper _mapper;
 
         public UserOperationsService(UserOperationsRepository userOperationsRepository, IMapper mapper)
         {
-            this._repository = userOperationsRepository;
+            this._userOperationsRepository = userOperationsRepository;
             this._mapper = mapper;
         }
 
@@ -36,21 +36,10 @@ namespace MyPassHolder.Services
                 if (!response.success)
                     return response;
 
+                Category categoryObj = _mapper.Map<Category>(req);
 
-
-                //User userObj = _mapper.Map<User>(userReq);
-
-                //User? user = _registerRepository.checkAccount(userObj);
-                //if (user == null)
-                //{
-                //    _registerRepository.createAccount(userObj);
-                //    response.data = "Kullanıcı Oluşturma Başarılı.";
-                //}
-                //else
-                //{
-                //    response.success = false;
-                //    response.errorMesssage = "Zaten Sisteme Kayıtlısınız..!";
-                //}
+                _userOperationsRepository.createCategory(categoryObj);
+                response.data = "Kategori Oluşturma Başarılı.";
             }
             catch (Exception ex)
             {

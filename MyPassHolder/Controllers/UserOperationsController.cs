@@ -11,7 +11,7 @@ namespace MyPassHolder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserOperationsController : ControllerBase
     {
         private readonly UserOperationsService _userOperationsService;
@@ -31,7 +31,7 @@ namespace MyPassHolder.Controllers
                 ResponseHandle res = _userOperationsService.createCategory(req);
                 if (res.success)
                 {
-                    jsonResponse = new JsonResult(new { success = true, token = res.data });
+                    jsonResponse = new JsonResult(new { success = true, data = res.data });
                 }
                 else
                     jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
