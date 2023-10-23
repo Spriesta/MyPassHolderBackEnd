@@ -11,7 +11,7 @@ namespace MyPassHolder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserOperationsController : ControllerBase
     {
         private readonly UserOperationsService _userOperationsService;

@@ -10,6 +10,7 @@ namespace MyPassHolder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [AllowAnonymous]
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;

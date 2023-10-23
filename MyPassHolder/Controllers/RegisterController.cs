@@ -1,4 +1,5 @@
-﻿ using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyPassHolder.Common;
 using MyPassHolder.RequestResponse;
@@ -9,6 +10,7 @@ namespace MyPassHolder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [AllowAnonymous]
     public class RegisterController : ControllerBase
     {
         private readonly RegisterService _registerService;
