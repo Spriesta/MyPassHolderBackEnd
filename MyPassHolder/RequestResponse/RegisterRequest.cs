@@ -2,9 +2,9 @@
 {
     public class RegisterRequest
     {
-        public string fullName { get; set; } = null!;
-        public string password { get; set; } = null!;
-        public string email { get; set; } = null!;
-        public string phoneNumber { get; set; } = null!;
+        public string? fullName { get; set; }
+        public string? password { get; set; }
+        public string? email { get; set; }
+        public string? phoneNumber { get; set; }
     }
 }

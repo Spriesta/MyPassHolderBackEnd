@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MyPassHolder.Common;
 using MyPassHolder.RequestResponse;
 using MyPassHolder.Security;
@@ -10,29 +11,27 @@ namespace MyPassHolder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    [Authorize]
+    public class UserOperationsController : ControllerBase
     {
-        private readonly LoginService _loginService;
-        private readonly IConfiguration _configuration;
+        private readonly UserOperationsService _userOperationsService;
 
-        public LoginController(LoginService loginService, IConfiguration configuration)
+        public UserOperationsController(UserOperationsService userOperationsService)
         {
-            this._loginService = loginService;
-            _configuration = configuration;
+            this._userOperationsService = userOperationsService;
         }
 
         [HttpPost]
-        public IActionResult login(LoginRequest req)
+        public IActionResult createCategory(CategoryRequest req)
         {
             JsonResult jsonResponse;
 
             try
             {
-                ResponseHandle res = _loginService.login(req);
+                ResponseHandle res = _userOperationsService.createCategory(req);
                 if (res.success)
                 {
-                    Token token = TokenHandler.createToken(_configuration, null, false);
-                    jsonResponse = new JsonResult(new { success = true, token = token });
+                    jsonResponse = new JsonResult(new { success = true, token = res.data });
                 }
                 else
                     jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });

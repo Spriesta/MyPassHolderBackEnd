@@ -32,6 +32,8 @@ builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<RegisterRepository>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<UserOperationsService>();
+builder.Services.AddScoped<UserOperationsRepository>();
 //My services
 
 var app = builder.Build();
