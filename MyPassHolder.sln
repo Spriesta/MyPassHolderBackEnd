@@ -5,7 +5,9 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPassHolder", "MyPassHolder\MyPassHolder.csproj", "{70D691AE-F03D-42ED-B477-90A9A229F2B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "MailSender\MailSender.csproj", "{31BCCF5D-4427-41CF-A504-D41608E94A7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender", "MailSender\MailSender.csproj", "{31BCCF5D-4427-41CF-A504-D41608E94A7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClass", "Helper\HelperClass.csproj", "{B518E5BC-30D4-4DFD-9096-DC407EA288F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{31BCCF5D-4427-41CF-A504-D41608E94A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31BCCF5D-4427-41CF-A504-D41608E94A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31BCCF5D-4427-41CF-A504-D41608E94A7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B518E5BC-30D4-4DFD-9096-DC407EA288F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B518E5BC-30D4-4DFD-9096-DC407EA288F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B518E5BC-30D4-4DFD-9096-DC407EA288F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B518E5BC-30D4-4DFD-9096-DC407EA288F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

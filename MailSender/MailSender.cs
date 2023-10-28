@@ -1,24 +1,28 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
+using MyPassHolder.Common;
+using HelperLib;
 
 namespace MailSender
 {
     public static class MailSender
     {
-        public static void send(string toMailAdress, string messageBody, string messageSubject)
+        public static ResponseHandle send(MailRequest req)
         {
+            ResponseHandle response = new ResponseHandle();
+
 			try
 			{
-                //if (string.IsNullOrEmpty(toMailAdress))
-                //    return null;
-
                 MimeMessage message = new MimeMessage();
 
-                message.From.Add(new MailboxAddress("Holder App", "dertlesh41@gmail.com"));
-                message.To.Add(MailboxAddress.Parse(toMailAdress));
-                message.Subject = messageSubject;
-                message.Body = new TextPart(messageBody);
+                message.From.Add(new MailboxAddress("My Holder Admin", "dertlesh41@gmail.com"));
+                message.To.Add(MailboxAddress.Parse(req.toMailAdress));
+                message.Subject = req.messageSubject;
+                message.Body = new TextPart("plain")
+                {
+                    Text = req.messageBody
+                };
 
                 SmtpClient smtpClient = new SmtpClient();
                 smtpClient.Connect("smtp.gmail.com", 587, false);
@@ -28,8 +32,11 @@ namespace MailSender
             }
 			catch (Exception ex)
 			{
-                throw new Exception(ex.Message);
+                response.success = false;
+                response.errorMesssage = ex.Message;
             }
+
+            return response;
         }
     }
 }

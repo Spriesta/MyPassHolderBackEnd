@@ -45,5 +45,28 @@ namespace MyPassHolder.Controllers
 
             return jsonResponse;
         }
+
+        [HttpPost]
+        public IActionResult forgetPassword(string email)
+        {
+            JsonResult jsonResponse;
+
+            try
+            {
+                ResponseHandle res = _loginService.forgetPassword(email);
+                if (res.success)
+                {
+                    jsonResponse = new JsonResult(new { success = true });
+                }
+                else
+                    jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = new JsonResult(new { success = false, errorMessage = ex.Message });
+            }
+
+            return jsonResponse;
+        }
     }
 }
