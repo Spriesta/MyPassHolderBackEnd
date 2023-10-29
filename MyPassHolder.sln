@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPassHolder", "MyPassHolde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender", "MailSender\MailSender.csproj", "{31BCCF5D-4427-41CF-A504-D41608E94A7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperClass", "Helper\HelperClass.csproj", "{B518E5BC-30D4-4DFD-9096-DC407EA288F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{B518E5BC-30D4-4DFD-9096-DC407EA288F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -55,14 +55,12 @@ public partial class PassHolderContext : DbContext
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("createDate");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Password).HasColumnName("password");
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("updateDate");
             entity.Property(e => e.UserId).HasColumnName("userId");
-            entity.Property(e => e.UserName)
-                .HasMaxLength(50)
-                .HasColumnName("userName");
 
             entity.HasOne(d => d.Category).WithMany(p => p.MyPasswords)
                 .HasForeignKey(d => d.CategoryId)
