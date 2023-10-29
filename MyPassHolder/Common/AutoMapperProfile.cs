@@ -9,7 +9,7 @@ namespace MyPassHolder.Common
         {
             CreateMap<RegisterRequest, User>().ReverseMap();
             CreateMap<CategoryRequest, Category>().ReverseMap();
-
+            CreateMap<createOrUpdateMyPasswordRequest, MyPassword>().ReverseMap();
         }
     }
 }

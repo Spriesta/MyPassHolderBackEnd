@@ -43,5 +43,51 @@ namespace MyPassHolder.Controllers
 
             return jsonResponse;
         }
+
+        [HttpPost]
+        public IActionResult createOrUpdateMyPassword(createOrUpdateMyPasswordRequest req)
+        {
+            JsonResult jsonResponse;
+
+            try
+            {
+                ResponseHandle res = _userOperationsService.createOrUpdateMyPassword(req);
+                if (res.success)
+                {
+                    jsonResponse = new JsonResult(new { success = true, data = res.data });
+                }
+                else
+                    jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = new JsonResult(new { success = false, errorMessage = ex.Message });
+            }
+
+            return jsonResponse;
+        }
+
+        [HttpPost]
+        public IActionResult deleteMyPassword(long id)
+        {
+            JsonResult jsonResponse;
+
+            try
+            {
+                ResponseHandle res = _userOperationsService.deleteMyPassword(id);
+                if (res.success)
+                {
+                    jsonResponse = new JsonResult(new { success = true, data = res.data });
+                }
+                else
+                    jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = new JsonResult(new { success = false, errorMessage = ex.Message });
+            }
+
+            return jsonResponse;
+        }
     }
 }

@@ -49,5 +49,80 @@ namespace MyPassHolder.Services
 
             return response;
         }
+
+        public ResponseHandle createOrUpdateMyPassword(createOrUpdateMyPasswordRequest req)
+        {
+            ResponseHandle response = new ResponseHandle();
+
+            try
+            {
+                if (string.IsNullOrEmpty(req.description))
+                {
+                    response.success = false;
+                    response.errorMesssage = "The description name field is required.";
+                }
+                else if (string.IsNullOrEmpty(req.password))
+                {
+                    response.success = false;
+                    response.errorMesssage = "The password name field is required.";
+                }
+                else if (req.userId == 0 || req.userId == null)
+                {
+                    response.success = false;
+                    response.errorMesssage = "The userId field is required.";
+                }
+                else if (req.categoryId == 0 || req.categoryId == null)
+                {
+                    response.success = false;
+                    response.errorMesssage = "The categoryId field is required.";
+                }
+
+                if (!response.success)
+                    return response;
+
+                MyPassword obj = _mapper.Map<MyPassword>(req);
+
+                if (obj.Id == 0 || obj.Id == null)
+                    _userOperationsRepository.createMyPassword(obj);
+                else
+                    _userOperationsRepository.updateMyPassword(obj);
+
+                response.data = "İşlem Başarılı..!";
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errorMesssage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public ResponseHandle deleteMyPassword(long id)
+        {
+            ResponseHandle response = new ResponseHandle();
+
+            try
+            {
+                if (id == 0 || id == null)
+                {
+                    response.success = false;
+                    response.errorMesssage = "The id field is required.";
+                }             
+
+                if (!response.success)
+                    return response;
+
+                _userOperationsRepository.deleteMyPassword(id);
+                response.data = "İşlem Başarılı..!";
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errorMesssage = ex.Message;
+            }
+
+            return response;
+        }
     }
 }
