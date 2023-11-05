@@ -68,5 +68,28 @@ namespace MyPassHolder.Controllers
 
             return jsonResponse;
         }
+
+        [HttpPost]
+        public IActionResult tokenValidator(string token)
+        {
+            JsonResult jsonResponse;
+
+            try
+            {
+                Boolean isValid = TokenValidator.IsTokenValid(token);
+                if (isValid)
+                {
+                    jsonResponse = new JsonResult(new { success = true });
+                }
+                else
+                    jsonResponse = new JsonResult(new { success = false, errorMessage = "Token Geçerli Değil" });
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = new JsonResult(new { success = false, errorMessage = ex.Message });
+            }
+
+            return jsonResponse;
+        }
     }
 }
