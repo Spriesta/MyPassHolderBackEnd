@@ -8,7 +8,7 @@ namespace MyPassHolder.Security
 {
     public static class TokenHandler
     {
-        public static Token createToken(IConfiguration configuration, double? expiration, bool isAdmin = false)        
+        public static Token createToken(IConfiguration configuration, double? expiration, bool isAdmin = false, string email = "")        
         { 
             Token token = new();
             List<Claim> claims = new List<Claim>();
@@ -25,6 +25,11 @@ namespace MyPassHolder.Security
             {
                 claims.Add(new Claim(ClaimTypes.Name, "admin"));
                 claims.Add(new Claim(ClaimTypes.Role, "admin"));
+            }
+
+            if (!email.IsNullOrEmpty())
+            {
+                claims.Add(new Claim(ClaimTypes.Email, email));
             }
 
             JwtSecurityToken jwtSecurityToken = new(

@@ -7,7 +7,7 @@ namespace MyPassHolder.Security
 {
     public static class TokenValidator
     {
-        public static bool IsTokenValid(string token)
+        public static bool isTokenValid(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahmetkeskinmetin2irregularkin"));
