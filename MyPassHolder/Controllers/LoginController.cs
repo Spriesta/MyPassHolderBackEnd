@@ -32,7 +32,7 @@ namespace MyPassHolder.Controllers
                 ResponseHandle res = _loginService.login(req);
                 if (res.success)
                 {
-                    Token token = TokenHandler.createToken(_configuration, null, false);
+                    Token token = TokenHandler.createToken(_configuration, null, false, res.email);
                     jsonResponse = new JsonResult(new { success = true, token = token });
                 }
                 else

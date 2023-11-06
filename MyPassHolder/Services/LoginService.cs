@@ -50,6 +50,11 @@ namespace MyPassHolder.Services
                     response.success = false;
                     response.errorMesssage = "Kullanıcı Girişi veya Şifre Hatalı..!";
                 }
+                else
+                {
+                    response.email = user.Email;
+                    response.phoneNumber = user.PhoneNumber;
+                }
             }
             catch (Exception ex)
             {
