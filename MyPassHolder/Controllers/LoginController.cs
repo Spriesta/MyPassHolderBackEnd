@@ -76,7 +76,7 @@ namespace MyPassHolder.Controllers
 
             try
             {
-                Boolean isValid = TokenValidator.IsTokenValid(token);
+                Boolean isValid = TokenValidator.isTokenValid(token);
                 if (isValid)
                 {
                     jsonResponse = new JsonResult(new { success = true });
