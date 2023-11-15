@@ -2,6 +2,7 @@
 using MyPassHolder.Common;
 using MyPassHolder.Repositories;
 using MyPassHolder.RequestResponse;
+using Org.BouncyCastle.Ocsp;
 
 namespace MyPassHolder.Services
 {
@@ -115,6 +116,35 @@ namespace MyPassHolder.Services
 
                 _userOperationsRepository.deleteMyPassword(id);
                 response.data = "İşlem Başarılı..!";
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errorMesssage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public ResponseHandle listCategory(long userId)
+        {
+            ResponseHandle response = new ResponseHandle();
+
+            try
+            {
+                if (userId == 0 || userId == null)
+                {
+                    response.success = false;
+                    response.errorMesssage = "The id field is required.";
+                }
+
+                if (!response.success)
+                    return response;
+
+                List<Category> records = _userOperationsRepository.listCategory(userId);
+
+                List<CategoryResponse> categoryResponse = _mapper.Map<List<CategoryResponse>>(records);
+                response.data = categoryResponse;
             }
             catch (Exception ex)
             {

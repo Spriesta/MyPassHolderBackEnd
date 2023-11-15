@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MyPassHolder.Common;
+using MyPassHolder.Repositories;
 using MyPassHolder.RequestResponse;
 using MyPassHolder.Security;
 using MyPassHolder.Services;
@@ -15,10 +16,14 @@ namespace MyPassHolder.Controllers
     public class UserOperationsController : ControllerBase
     {
         private readonly UserOperationsService _userOperationsService;
+        private readonly IConfiguration _configuration;
+        private readonly LoginRepository _loginRepository;
 
-        public UserOperationsController(UserOperationsService userOperationsService)
+        public UserOperationsController(UserOperationsService userOperationsService, IConfiguration configuration, LoginRepository loginRepository)
         {
-            this._userOperationsService = userOperationsService;
+            _userOperationsService = userOperationsService;
+            _configuration = configuration;
+            _loginRepository = loginRepository;
         }
 
         [HttpPost]
@@ -81,6 +86,36 @@ namespace MyPassHolder.Controllers
                 }
                 else
                     jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = new JsonResult(new { success = false, errorMessage = ex.Message });
+            }
+
+            return jsonResponse;
+        }
+
+        [HttpPost]
+        public IActionResult listCategory(CategoryRequest req)
+        {
+            JsonResult jsonResponse;
+
+            try
+            {
+                string email = TokenHandler.decodeTokenForEmail(_configuration, req.token);
+                User? user = _loginRepository.getAccountWithEmail(email);
+
+                if (user != null)
+                {
+                    ResponseHandle res = _userOperationsService.listCategory(user.Id);
+                    if (res.success)                  
+                        jsonResponse = new JsonResult(new { success = true, data = res.data });
+                    
+                    else
+                        jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
+                }               
+                else
+                    jsonResponse = new JsonResult(new { success = false });
             }
             catch (Exception ex)
             {

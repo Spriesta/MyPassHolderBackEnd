@@ -86,5 +86,18 @@ namespace MyPassHolder.Repositories
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<Category> listCategory(long userId)
+        {
+            try
+            {
+                IQueryable<Category> obj = _context.Categories.Where(x => x.UserId == userId);
+                return obj.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
