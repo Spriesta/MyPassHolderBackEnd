@@ -10,7 +10,6 @@ namespace MyPassHolder.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [AllowAnonymous]
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
@@ -22,6 +21,7 @@ namespace MyPassHolder.Controllers
             _configuration = configuration;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult login(LoginRequest req)
         {
@@ -46,8 +46,9 @@ namespace MyPassHolder.Controllers
             return jsonResponse;
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult forgetPassword(string email)
+        public IActionResult forgetPassword(string email)   //token lı link göndermek gerek
         {
             JsonResult jsonResponse;
 
@@ -69,6 +70,33 @@ namespace MyPassHolder.Controllers
             return jsonResponse;
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult changePassword(ChangePasswordRequest req)  //email şifremi unuttum link ile geldi
+        {
+            JsonResult jsonResponse;
+
+            try
+            {
+                string email = TokenHandler.decodeTokenForEmail(_configuration, req.token); 
+
+                ResponseHandle res = _loginService.changePassword(email, req.newPassword);
+                if (res.success)
+                {
+                    jsonResponse = new JsonResult(new { success = true });
+                }
+                else
+                    jsonResponse = new JsonResult(new { success = false, errorMessage = res.errorMesssage });
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = new JsonResult(new { success = false, errorMessage = ex.Message });
+            }
+
+            return jsonResponse;
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult tokenValidator(string token)
         {

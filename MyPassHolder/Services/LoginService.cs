@@ -65,7 +65,6 @@ namespace MyPassHolder.Services
             return response;
         }
 
-
         public ResponseHandle forgetPassword(string email)  //şifremi unuttum maili token ve link ile gidecek 
         {
             ResponseHandle response = new ResponseHandle();
@@ -92,6 +91,44 @@ namespace MyPassHolder.Services
                 mailRequest.messageBody = "Merhabalar, Şifre Tutucu Parolanızı Değiştirmek İçin Lütfen Aşağıdaki Linke Tıklayınız.";
 
                 response = MailSender.MailSender.send(mailRequest);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errorMesssage = ex.Message;
+            }
+
+            return response;
+        }
+
+        public ResponseHandle changePassword(string email, string newPassword) 
+        {
+            ResponseHandle response = new ResponseHandle();
+            User? user = new User();
+
+            try
+            {
+                bool isEmail = Helper.IsEmailRegex(email);
+
+                if (string.IsNullOrEmpty(email) || !isEmail)
+                {
+                    response.success = false;
+                    response.errorMesssage = "The email field is required.";
+                }
+                else if (string.IsNullOrEmpty(newPassword))
+                {
+                    response.success = false;
+                    response.errorMesssage = "The new Password field is required.";
+                }
+
+                if (!response.success)
+                    return response;
+
+                user = _loginRepository.getAccountWithEmail(email);
+                if(user != null)
+                {
+                    _loginRepository.changePassword(user, newPassword);
+                }
             }
             catch (Exception ex)
             {

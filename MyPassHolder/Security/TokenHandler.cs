@@ -51,5 +51,17 @@ namespace MyPassHolder.Security
 
             return token;
         }
+
+        public static string decodeTokenForEmail(IConfiguration configuration, string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            //var emailClaim = jwtToken.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Email);
+            var emailClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+            var email = emailClaim.Value;
+
+            return email;
+        }
     }
 }
